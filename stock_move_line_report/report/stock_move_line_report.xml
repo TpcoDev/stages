@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_move_line_report_tree" model="ir.ui.view">
+         <field name="name">stock.move.line.report.tree</field>
+         <field name="model">stock.move.line.report</field>
+         <field name="arch" type="xml">
+             <tree>
+                <field name="lote_number"/>
+                <field name="cat_cod"/>
+                <field name="cat_name"/>
+                <field name="rut"/>
+                <field name="user_name"/>
+                <field name="at_marc_cod"/>
+                <field name="at_marc_name"/>
+                <field name="at_model_name"/>
+                <field name="provider_ref"/>
+             </tree>
+         </field>
+    </record>
+
+    <record id="view_stock_move_line_report_form" model="ir.ui.view">
+         <field name="name">stock.move.line.report.form</field>
+         <field name="model">stock.move.line.report</field>
+         <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="lote_number"/>
+                            <field name="cat_cod"/>
+                            <field name="cat_name"/>
+                            <field name="rut"/>
+                            <field name="user_name"/>
+                            <field name="at_marc_cod"/>
+                            <field name="at_marc_name"/>
+                            <field name="at_model_name"/>
+                            <field name="provider_ref"/>
+                        </group>
+                        <group>
+                            <field name="at_processor_name"/>
+                            <field name="at_speed_name"/>
+                            <field name="at_memory_name"/>
+                            <field name="at_hdd_name"/>
+                            <field name="at_purchase_cost"/>
+                            <field name="provider"/>
+                            <field name="invoice_n"/>
+                            <field name="purchase_date"/>
+                            <field name="assignment_date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+         </field>
+    </record>
+
+    <record id="action_stock_move_line_report" model="ir.actions.act_window">
+        <field name="name">Stock move line Report</field>
+        <field name="res_model">stock.move.line.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <!-- <field name="view_id"></field>  force empty -->
+        <!-- <field name="search_view_id" ref=""/> -->
+        <!-- <field name="context">{'search_default_':1, 'group_by_no_leaf':1,'group_by':[]}</field> -->
+    </record>
+
+    <menuitem
+        id="stock_move_line_report_menu"
+        name="Stock move line Report"
+        parent="stock.menu_warehouse_report"
+        action="action_stock_move_line_report"
+        sequence="160"
+    />
+</odoo>
