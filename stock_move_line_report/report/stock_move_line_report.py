@@ -53,6 +53,7 @@ class StockMoveLineReport(models.Model):
 
     def _query(self):
         _select = """
+            --SELECT sl.barcode ~ '^[0-9]+.-' OR sl.barcode ~ '^[0-9]+'
             SELECT min(sml.id) as id, max(sml.date) AS assignment_date, spl.name AS lote_number, sl.name AS user_name, 
             spl.x_studio_n_factura AS invoice_n, spl.x_studio_costo_compra AS purchase_cost, 
             spl."x_studio_field_6Pp3S" AS purchase_date, spl.ref AS provider_ref,
@@ -61,7 +62,7 @@ class StockMoveLineReport(models.Model):
             at_model.x_name AS at_model_name, at_memory.x_name AS at_memory_name, 
             at_hdd.x_name AS at_hdd_name, at_processor.x_name AS at_processor_name, 
             at_speed.x_name AS at_speed_name, pc.name AS cat_name, 
-            pc."x_studio_field_B5Yrj" AS cat_cod, sl.barcode AS rut, sl.id AS sl_id
+            pc."x_studio_field_B5Yrj" AS cat_cod, regexp_replace(sl.barcode, '-.*', '') AS rut, sl.id AS sl_id
 
             FROM stock_move_line sml
             JOIN stock_production_lot spl ON sml.lot_id = spl.id
@@ -88,7 +89,7 @@ class StockMoveLineReport(models.Model):
             at_speed_name, cat_name, cat_cod, rut, sl_id
 
 
-            HAVING NOT is_location_parent(sl.id)
+            HAVING NOT is_location_parent(sl.id) AND sl.barcode ~ '^[0-9]+.-'
         """
 
         return _select
